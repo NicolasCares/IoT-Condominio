@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Painel LuthierTech</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        :root { --bg: #f4f7f6; --card: #fff; --text: #333; --border: #555; }
+        body.dark-mode { --bg: #121212; --card: #1e1e1e; --text: #fff; --border: #888; }
+
+        body { 
+            font-family: 'Segoe UI', sans-serif; 
+            background: var(--bg); 
+            color: var(--text); 
+            margin: 0; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            height: 100vh; 
+            transition: 0.3s;
+            position: relative;
+        }
+
+        .top-controls {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            z-index: 1000;
+        }
+
+        .theme-switch { cursor: pointer; font-size: 26px; color: var(--text); }
+
+        .logout-btn {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: bold;
+            border: 2px solid var(--text);
+            padding: 6px 18px;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .card { 
+            background: var(--card); 
+            padding: 40px; 
+            border-radius: 25px; 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2); 
+            text-align: center; 
+            width: 320px; 
+        }
+
+        .info-topo { margin-bottom: 15px; }
+        .info-topo h3 { margin: 0; font-size: 18px; opacity: 0.9; }
+        .info-topo span { font-size: 14px; font-weight: bold; color: #007BFF; }
+
+        .caixa { 
+            width: 120px; 
+            height: 200px; 
+            border: 5px solid var(--border); 
+            border-radius: 0 0 15px 15px; 
+            margin: 0 auto 20px; 
+            position: relative; 
+            overflow: hidden; 
+            background: rgba(0,0,0,0.05); 
+        }
+
+        /* ANIMAÇÃO DE ONDA REAL */
+        .agua { 
+            background: #007BFF; 
+            width: 100%; 
+            position: absolute; 
+            bottom: 0; 
+            height: {{ nivel }}%; 
+            transition: height 1.5s ease-in-out; 
+            box-shadow: inset 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        /* Camada da Onda Superior */
+        .agua::before {
+            content: "";
+            position: absolute;
+            top: -10px;
+            left: -25%;
+            width: 150%;
+            height: 20px;
+            background: #007BFF;
+            border-radius: 50% 50% 0 0;
+            animation: onda_balanco 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes onda_balanco {
+            from { transform: translateX(0) skewY(-2deg); }
+            to { transform: translateX(-15%) skewY(2deg); }
+        }
+
+        .nivel-label { font-size: 38px; font-weight: 900; }
+    </style>
+</head>
+<body>
+
+    <div class="top-controls">
+        <div class="theme-switch" onclick="mudarTema()">
+            <i id="theme-icon" class="fas fa-moon"></i>
+        </div>
+        <a href="{{ url_for('logout') }}" class="logout-btn">Sair</a>
+    </div>
+
+    <div class="card">
+        <div class="info-topo">
+            <h3>Reservatório Principal</h3>
+            <span>Monitoramento em Tempo Real</span>
+        </div>
+
+        <div class="caixa">
+            <div class="agua"></div>
+        </div>
+
+        <div class="nivel-label">{{ nivel }}%</div>
+        
+        <p style="margin: 10px 0 0; font-size: 14px; font-weight: bold;">
+            Status: {% if nivel > 20 %}<span style="color: #28a745;">ESTÁVEL</span>{% else %}<span style="color: #dc3545;">CRÍTICO</span>{% endif %}
+        </p>
+    </div>
+
+    <script>
+        const icon = document.getElementById('theme-icon');
+        function aplicar(t) {
+            if(t === 'escuro') {
+                document.body.classList.add('dark-mode');
+                icon.className = 'fas fa-sun';
+            } else {
+                document.body.classList.remove('dark-mode');
+                icon.className = 'fas fa-moon';
+            }
+        }
+        aplicar(localStorage.getItem('tema'));
+        function mudarTema() {
+            const novo = document.body.classList.contains('dark-mode') ? 'claro' : 'escuro';
+            localStorage.setItem('tema', novo);
+            aplicar(novo);
+        }
+    </script>
+</body>
+</html>
