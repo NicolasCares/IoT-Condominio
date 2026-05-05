@@ -5,8 +5,22 @@
     <title>Painel LuthierTech</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
-        :root { --bg: #f4f7f6; --card: #fff; --text: #333; --border: #555; }
-        body.dark-mode { --bg: #121212; --card: #1e1e1e; --text: #fff; --border: #888; }
+        :root { 
+            --bg: #eef5fb; 
+            --card: #ffffff; 
+            --text: #4a4a4a; 
+            --accent: #2196F3; 
+            --water-top: #4dabf7;
+            --water-bottom: #1971c2;
+        }
+
+        body.dark-mode { 
+            --bg: #121212; 
+            --card: #1e1e1e; 
+            --text: #e0e0e0; 
+            --accent: #64b5f6;
+            --water-top: #2196F3;
+        }
 
         body { 
             font-family: 'Segoe UI', sans-serif; 
@@ -18,85 +32,103 @@
             align-items: center; 
             height: 100vh; 
             transition: 0.3s;
-            position: relative;
         }
 
         .top-controls {
             position: absolute;
-            top: 25px;
-            right: 25px;
+            top: 20px;
+            right: 20px;
             display: flex;
-            align-items: center;
-            gap: 20px;
-            z-index: 1000;
+            gap: 15px;
+            z-index: 10;
         }
 
-        .theme-switch { cursor: pointer; font-size: 26px; color: var(--text); }
-
-        .logout-btn {
-            text-decoration: none;
-            color: var(--text);
-            font-weight: bold;
-            border: 2px solid var(--text);
-            padding: 6px 18px;
-            border-radius: 8px;
-            font-size: 14px;
+        .theme-switch { cursor: pointer; font-size: 24px; }
+        .logout-btn { 
+            text-decoration: none; color: var(--text); 
+            border: 1px solid var(--text); padding: 5px 15px; border-radius: 20px; font-size: 13px;
         }
 
         .card { 
             background: var(--card); 
-            padding: 40px; 
-            border-radius: 25px; 
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2); 
-            text-align: center; 
-            width: 320px; 
+            padding: 30px; 
+            border-radius: 30px; 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1); 
+            width: 350px;
+            display: flex;
+            flex-direction: column;
         }
 
-        .info-topo { margin-bottom: 15px; }
-        .info-topo h3 { margin: 0; font-size: 18px; opacity: 0.9; }
-        .info-topo span { font-size: 14px; font-weight: bold; color: #007BFF; }
-
-        .caixa { 
-            width: 120px; 
-            height: 200px; 
-            border: 5px solid var(--border); 
-            border-radius: 0 0 15px 15px; 
-            margin: 0 auto 20px; 
-            position: relative; 
-            overflow: hidden; 
-            background: rgba(0,0,0,0.05); 
+        .status-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
         }
 
-        /* ANIMAÇÃO DE ONDA REAL */
-        .agua { 
-            background: #007BFF; 
-            width: 100%; 
-            position: absolute; 
-            bottom: 0; 
-            height: {{ nivel }}%; 
-            transition: height 1.5s ease-in-out; 
-            box-shadow: inset 0 10px 20px rgba(0,0,0,0.2);
+        .info-col { text-align: left; }
+        .info-col label { font-size: 12px; color: #888; display: block; margin-bottom: 4px; }
+        .info-col span { font-size: 28px; font-weight: 700; }
+
+        .capsula-outer {
+            width: 90px;
+            height: 220px;
+            background: #f1f3f5;
+            border-radius: 45px;
+            position: relative;
+            overflow: hidden;
+            border: 4px solid #fff;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
         }
 
-        /* Camada da Onda Superior */
+        .agua {
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+            height: {{ nivel }}%;
+            background: linear-gradient(180deg, var(--water-top) 0%, var(--water-bottom) 100%);
+            transition: height 2s ease-in-out;
+        }
+
         .agua::before {
             content: "";
             position: absolute;
             top: -10px;
-            left: -25%;
-            width: 150%;
+            left: 0;
+            width: 200%;
             height: 20px;
-            background: #007BFF;
-            border-radius: 50% 50% 0 0;
-            animation: onda_balanco 3s ease-in-out infinite alternate;
+            background: var(--water-top);
+            border-radius: 40%;
+            animation: move-onda 4s linear infinite;
+            opacity: 0.6;
         }
 
-        @keyframes onda_balanco {
-            from { transform: translateX(0) skewY(-2deg); }
-            to { transform: translateX(-15%) skewY(2deg); }
+        @keyframes move-onda {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
         }
 
-        .nivel-label { font-size: 38px; font-weight: 900; }
+        .footer-info {
+            margin-top: 25px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(0,0,0,0.05);
+            font-size: 13px;
+            color: #999;
+            text-align: center;
+        }
+
+        .status-badge {
+            margin-top: 15px;
+            padding: 8px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 13px;
+            background: rgba(40, 167, 69, 0.1);
+            color: #28a745;
+            text-align: center;
+        }
+
+        .critico { background: rgba(220, 53, 69, 0.1); color: #dc3545; }
     </style>
 </head>
 <body>
@@ -109,20 +141,31 @@
     </div>
 
     <div class="card">
-        <div class="info-topo">
-            <h3>Reservatório Principal</h3>
-            <span>Monitoramento em Tempo Real</span>
+        <div class="status-container">
+            <div class="info-col">
+                <label>Nível do Líquido</label>
+                <span>{{ nivel }}%</span>
+                
+                <label style="margin-top: 20px;">Profundidade</label>
+                <span style="font-size: 22px;">{{ profundidade }}m</span>
+
+                <label style="margin-top: 20px;">Status</label>
+                <span style="font-size: 18px;">{% if nivel > 20 %}Normal{% else %}Baixo{% endif %}</span>
+            </div>
+
+            <div class="capsula-outer">
+                <div class="agua"></div>
+            </div>
         </div>
 
-        <div class="caixa">
-            <div class="agua"></div>
+        <!-- Onde aparecem a data e a profundidade no rodapé -->
+        <div class="footer-info">
+            {{ data_hora }} &nbsp;&nbsp; {{ profundidade }}m
         </div>
 
-        <div class="nivel-label">{{ nivel }}%</div>
-        
-        <p style="margin: 10px 0 0; font-size: 14px; font-weight: bold;">
-            Status: {% if nivel > 20 %}<span style="color: #28a745;">ESTÁVEL</span>{% else %}<span style="color: #dc3545;">CRÍTICO</span>{% endif %}
-        </p>
+        <div class="status-badge {% if nivel <= 20 %}critico{% endif %}">
+            {% if nivel > 20 %}ESTÁVEL{% else %}ALERTA CRÍTICO{% endif %}
+        </div>
     </div>
 
     <script>
@@ -142,6 +185,9 @@
             localStorage.setItem('tema', novo);
             aplicar(novo);
         }
+
+        // AUTO-REFRESH (30 SEGUNDOS)
+        setTimeout(() => { window.location.reload(); }, 30000);
     </script>
 </body>
 </html>
