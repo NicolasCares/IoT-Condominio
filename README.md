@@ -1,4 +1,4 @@
-# Sistema de Gerenciamento IoT (TCC - Engenharia de Computação)
+# Sistema de Gerenciamento IoT (Projeto Integrador)
 
 Este projeto consiste em um sistema de gerenciamento de dispositivos IoT utilizando **Flask**, **Docker** e a biblioteca **TinyTuya**.
 
