@@ -1,0 +1,350 @@
+{
+    "result": [
+        {
+            "active_time": 1775847235,
+            "biz_type": 0,
+            "category": "ywcgq",
+            "create_time": 1775847235,
+            "icon": "smart/icon/bay1614837762606RDah/b6a5a984c5c0d81b81a0bc1eaf217638.png",
+            "id": "eb525920c40c7de1caiosa",
+            "ip": "",
+            "lat": "-23.72",
+            "local_key": "vvG>!WuaA;c@E!0y",
+            "lon": "-46.54",
+            "model": "ME201Z",
+            "name": "ME201Z Level Sensor",
+            "node_id": "a4c1388309b93d52",
+            "online": true,
+            "owner_id": "281581052",
+            "product_id": "kyyu8rbj",
+            "product_name": "ME201Z Level Sensor",
+            "status": [
+                {
+                    "code": "liquid_state",
+                    "value": "normal"
+                },
+                {
+                    "code": "liquid_depth",
+                    "value": 15
+                },
+                {
+                    "code": "battery_percentage",
+                    "value": 51
+                },
+                {
+                    "code": "max_set",
+                    "value": 80
+                },
+                {
+                    "code": "mini_set",
+                    "value": 20
+                },
+                {
+                    "code": "installation_height",
+                    "value": 26
+                },
+                {
+                    "code": "liquid_depth_max",
+                    "value": 26
+                },
+                {
+                    "code": "liquid_level_percent",
+                    "value": 57
+                }
+            ],
+            "sub": true,
+            "time_zone": "-03:00",
+            "uid": "az1767905960323BqJDz",
+            "update_time": 1778017083,
+            "uuid": "a4c1388309b93d52",
+            "mapping": {
+                "1": {
+                    "code": "liquid_state",
+                    "type": "Enum",
+                    "values": {
+                        "range": [
+                            "normal",
+                            "lower_alarm",
+                            "upper_alarm"
+                        ]
+                    }
+                },
+                "2": {
+                    "code": "liquid_depth",
+                    "type": "Integer",
+                    "values": {
+                        "unit": "m",
+                        "min": -500,
+                        "max": 10000,
+                        "scale": 2,
+                        "step": 1
+                    }
+                },
+                "5": {
+                    "code": "battery_percentage",
+                    "type": "Integer",
+                    "values": {
+                        "unit": "V",
+                        "min": 0,
+                        "max": 100,
+                        "scale": 1,
+                        "step": 1
+                    }
+                },
+                "7": {
+                    "code": "max_set",
+                    "type": "Integer",
+                    "values": {
+                        "unit": "%",
+                        "min": 10,
+                        "max": 100,
+                        "scale": 0,
+                        "step": 1
+                    }
+                },
+                "8": {
+                    "code": "mini_set",
+                    "type": "Integer",
+                    "values": {
+                        "unit": "%",
+                        "min": 0,
+                        "max": 100,
+                        "scale": 0,
+                        "step": 1
+                    }
+                },
+                "19": {
+                    "code": "installation_height",
+                    "type": "Integer",
+                    "values": {
+                        "unit": "m",
+                        "min": 10,
+                        "max": 500,
+                        "scale": 2,
+                        "step": 1
+                    }
+                },
+                "21": {
+                    "code": "liquid_depth_max",
+                    "type": "Integer",
+                    "values": {
+                        "unit": "m",
+                        "min": 10,
+                        "max": 500,
+                        "scale": 2,
+                        "step": 1
+                    }
+                },
+                "22": {
+                    "code": "liquid_level_percent",
+                    "type": "Integer",
+                    "values": {
+                        "unit": "%",
+                        "min": 0,
+                        "max": 200,
+                        "scale": 0,
+                        "step": 1
+                    }
+                }
+            }
+        },
+        {
+            "active_time": 1775845844,
+            "biz_type": 0,
+            "category": "wg2",
+            "create_time": 1769278552,
+            "icon": "smart/icon/ay1567555651860YRUh5/8b169ba6454f261bd8a6d3392592b06e.png",
+            "id": "eb06ec54ac5bfea3b5wgvk",
+            "ip": "189.29.148.4",
+            "lat": "-23.72",
+            "local_key": "vvG>!WuaA;c@E!0y",
+            "lon": "-46.54",
+            "model": "HNZ+BLE-03",
+            "name": "Hub ZigBee + Bluetooth",
+            "online": true,
+            "owner_id": "281581052",
+            "product_id": "kq8pbnngsdezdcpa",
+            "product_name": "Hub ZigBee + Bluetooth",
+            "status": [
+                {
+                    "code": "switch_alarm_sound",
+                    "value": false
+                },
+                {
+                    "code": "master_state",
+                    "value": "normal"
+                },
+                {
+                    "code": "factory_reset",
+                    "value": false
+                },
+                {
+                    "code": "alarm_active",
+                    "value": ""
+                }
+            ],
+            "sub": true,
+            "time_zone": "-03:00",
+            "uid": "az1767905960323BqJDz",
+            "update_time": 1778017083,
+            "uuid": "a46d0d85ec00cc2c",
+            "mapping": {
+                "4": {
+                    "code": "switch_alarm_sound",
+                    "type": "Boolean",
+                    "values": {}
+                },
+                "32": {
+                    "code": "master_state",
+                    "type": "Enum",
+                    "values": {
+                        "range": [
+                            "normal",
+                            "alarm"
+                        ]
+                    }
+                },
+                "34": {
+                    "code": "factory_reset",
+                    "type": "Boolean",
+                    "values": {}
+                },
+                "45": {
+                    "code": "alarm_active",
+                    "type": "String",
+                    "values": "{\"maxlen\":255}"
+                }
+            }
+        },
+        {
+            "active_time": 1775845844,
+            "biz_type": 0,
+            "category": "mcs",
+            "create_time": 1769278682,
+            "icon": "smart/icon/1524817291ohyty7jfc6kyokuqeyvnp14i_0.png",
+            "id": "eb15343c22b41756dccplt",
+            "ip": "",
+            "lat": "",
+            "local_key": "vvG>!WuaA;c@E!0y",
+            "lon": "",
+            "model": "",
+            "name": "Door Sensor",
+            "node_id": "a4c138df774be282",
+            "online": true,
+            "owner_id": "281581052",
+            "product_id": "7jIGJAymiH8OsFFb",
+            "product_name": "Door Sensor",
+            "status": [
+                {
+                    "code": "switch",
+                    "value": false
+                },
+                {
+                    "code": "battery",
+                    "value": 24
+                }
+            ],
+            "sub": true,
+            "time_zone": "-03:00",
+            "uid": "az1767905960323BqJDz",
+            "update_time": 1778017083,
+            "uuid": "eb15343c22b41756dccplt",
+            "mapping": {
+                "101": {
+                    "code": "switch",
+                    "type": "Boolean",
+                    "values": {}
+                },
+                "103": {
+                    "code": "battery",
+                    "type": "Integer",
+                    "values": {
+                        "unit": "",
+                        "min": 0,
+                        "max": 500,
+                        "scale": 0,
+                        "step": 1
+                    }
+                }
+            }
+        },
+        {
+            "active_time": 1773240392,
+            "biz_type": 0,
+            "category": "wg2",
+            "create_time": 1773240392,
+            "icon": "smart/icon/bay16677017786803o2u/505f126fae232e4140fd1cf619faf626.png",
+            "id": "vdevo177324039256905",
+            "ip": "2804:14d:7841:429c:59cd:7014:f24e:fcd1",
+            "lat": "",
+            "local_key": "yg/uf>7)P2=b>)fU",
+            "lon": "",
+            "model": "LKGWBZ01",
+            "name": "Smart Gateway-vdevo",
+            "online": true,
+            "owner_id": "281581052",
+            "product_id": "bl5aaeintogoh84r",
+            "product_name": "Smart Gateway",
+            "status": [
+                {
+                    "code": "switch_alarm_sound",
+                    "value": false
+                },
+                {
+                    "code": "master_state",
+                    "value": "normal"
+                },
+                {
+                    "code": "factory_reset",
+                    "value": false
+                },
+                {
+                    "code": "alarm_active",
+                    "value": ""
+                }
+            ],
+            "sub": false,
+            "time_zone": "",
+            "uid": "az1767905960323BqJDz",
+            "update_time": 1773240392,
+            "uuid": "vdevo177324039256905",
+            "mapping": {
+                "4": {
+                    "code": "switch_alarm_sound",
+                    "type": "Boolean",
+                    "values": {}
+                },
+                "32": {
+                    "code": "master_state",
+                    "type": "Enum",
+                    "values": {
+                        "range": [
+                            "normal",
+                            "alarm"
+                        ]
+                    }
+                },
+                "34": {
+                    "code": "factory_reset",
+                    "type": "Boolean",
+                    "values": {}
+                },
+                "45": {
+                    "code": "alarm_active",
+                    "type": "String",
+                    "values": "{\"maxlen\":255}"
+                }
+            }
+        }
+    ],
+    "success": true,
+    "t": 1778019970131,
+    "tid": "6a800a7748d111f1bc5a360eb638e229",
+    "file": {
+        "name": "tuya-raw.json",
+        "description": "Full raw list of Tuya devices.",
+        "account": "fyktvwpmdcypmc43rds3",
+        "date": "2026-05-05T19:25:22.041425",
+        "tinytuya": "1.18.0"
+    }
+}

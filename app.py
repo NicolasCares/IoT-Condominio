@@ -1,44 +1,68 @@
+import os
 from flask import Flask, render_template, request, redirect, url_for
-from tuya_iot import TuyaOpenAPI
+from tuya_connector import TuyaOpenAPI
 from datetime import datetime
+from dotenv import load_dotenv
+import logging
+import traceback
+
+load_dotenv()
 
 app = Flask(__name__)
 
-# --- CONFIGURAÇÕES CLOUD REAIS (LuthierTech) ---
+# ==================== CONFIGURAÇÕES TUYA ====================
 ENDPOINT = "https://openapi.tuyaus.com" 
-ACCESS_ID = "fyktvwpmdcypmc43rds3"
-ACCESS_KEY = "a174b9cc6bcd49758ca629b4314137da"
-DEVICE_ID = 'eb525920c40c7de1caiosa'
+ACCESS_ID = os.getenv("ACCESS_ID")
+ACCESS_KEY = os.getenv("ACCESS_KEY")
+DEVICE_ID = os.getenv("DEVICE_ID")
 
 def obter_dados_sensor():
     try:
+        print("\n=== INICIANDO CONEXÃO COM TUYA ===")
+        print(f"DEVICE_ID: {DEVICE_ID}")
+
         openapi = TuyaOpenAPI(ENDPOINT, ACCESS_ID, ACCESS_KEY)
-        openapi.connect()
         
+        # Limpa token antigo
+        openapi.token_info = None
+        
+        connected = openapi.connect()
+        print(f"Connect(): {connected}")
+
+        if not connected:
+            print("❌ Falha na autenticação")
+            return {"nivel": 0, "profundidade": 0.0}
+
+        print("✅ Conectado com sucesso!")
+
+        # Requisição dos dados
         res = openapi.get(f"/v1.0/devices/{DEVICE_ID}/status")
-        
-        # Valores padrão baseados no seu print caso a API falhe
-        dados = {
-            "nivel": 69,
-            "profundidade": 0.18
-        }
+        print(f"RESPOSTA STATUS: {res}")
 
-        if res.get('success'):
+        dados = {"nivel": 0, "profundidade": 0.0}
+
+        if res.get('success') and isinstance(res.get('result'), list):
+            print("\n📊 DADOS DO SENSOR:")
             for item in res['result']:
-                # Pega o percentual (DP 1 ou liquid_level_percent)
-                if item['code'] in ['1', 'liquid_level_percent']:
-                    dados["nivel"] = item['value']
-                # Pega a profundidade (liquid_depth)
-                if item['code'] == 'liquid_depth':
-                    val = item['value']
-                    # Se vier em cm (18), converte para metros (0.18)
-                    dados["profundidade"] = val / 100 if val > 1 else val
-                    
-        return dados
-    except Exception as e:
-        print(f"Erro na nuvem: {e}")
-        return {"nivel": 69, "profundidade": 0.18}
+                code = str(item.get('code', ''))
+                value = item.get('value')
+                print(f"   DP: {code} = {value}")
 
+                if code in ["liquid_level_percent", "22"]:
+                    dados["nivel"] = int(value) if value is not None else 0
+                elif code in ["liquid_depth", "2"]:
+                    val = float(value)
+                    dados["profundidade"] = round(val / 100, 2) if val > 10 else round(val, 2)
+
+        return dados
+
+    except Exception as e:
+        print(f"\n❌ ERRO: {e}")
+        traceback.print_exc()
+        return {"nivel": 0, "profundidade": 0.0}
+
+
+# ==================== ROTAS FLASK ====================
 @app.route('/')
 def index():
     return redirect(url_for('login'))
@@ -46,17 +70,14 @@ def index():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        u = request.form.get('username')
-        p = request.form.get('password')
-        if u == 'admin' and p == '123':
+        if request.form.get('username') == 'admin' and request.form.get('password') == '123':
             return redirect(url_for('dashboard'))
     return render_template('login.html')
 
 @app.route('/dashboard')
 def dashboard():
     dados = obter_dados_sensor()
-    # Pega data e hora atual exatamente como no print do celular
-    agora = datetime.now().strftime('%Y/%m/%d %H:%M:%S')
+    agora = datetime.now().strftime('%d/%m/%Y %H:%M:%S')
     
     return render_template('dashboard.html', 
                            nivel=dados["nivel"], 
@@ -67,5 +88,7 @@ def dashboard():
 def logout():
     return redirect(url_for('login'))
 
+
 if __name__ == '__main__':
+    print("🚀 Servidor rodando em http://127.0.0.1:5000")
     app.run(debug=True)
